@@ -1,3 +1,4 @@
+require "pry"
 # Write your code below game_hash
 def game_hash
   {
@@ -126,4 +127,66 @@ def game_hash
   }
 end
 
+# Get All Players
+def all_players
+  all_players_array = []
+  game_hash.each_value do |team|
+    all_players_array << team[:players]
+  end
+  all_players_array.flatten
+end
+
+puts all_players
+
 # Write code here
+def num_points_scored(search_player)
+  players = []
+  game_hash.each_value do |team|
+    players << team[:players]
+  end
+
+  players.flatten.find{|p| p[:player_name] == search_player}[:points]
+end
+
+#puts num_points_scored("Jeff Adrien")
+
+#Shoe Size
+def shoe_size(search_player)
+  players = []
+  game_hash.each_value do |team|
+    players << team[:players]
+  end
+
+  players.flatten.find{|p| p[:player_name] == search_player}[:shoe]
+end
+
+#puts num_points_scored("Jeff Adrien")
+
+# Team Colors
+def team_colors(search_team)
+  game_hash.each_value.select{|team| team[:team_name] == search_team}[0][:colors]
+end
+
+# Team Names
+def team_names
+  game_hash.map do |team, data|
+    data[:team_name]
+  end
+end
+
+#Player Numbers
+def player_numbers(team_name) 
+    game_hash.each_value.select{|team| team[:team_name] == team_name}[0][:players].map{|p| p[:number]}
+end
+
+#Player Stats
+
+def player_stats(player_name)
+  all_players.flatten.find{|p| p[:player_name]== player_name}
+end
+
+# Big Shoe Rebounds
+def big_shoe_rebounds
+  max_shoe = all_players.flatten.map{|p| p[:shoe]}.max
+  all_players.flatten.find{|p| p[:shoe] == max_shoe}[:rebounds]
+end
